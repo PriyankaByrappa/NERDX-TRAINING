@@ -1,4 +1,4 @@
-// You are using Java
+1. // You are using Java
 import java.util.*;
 class main 
 {
@@ -65,3 +65,427 @@ Array: [-2, 0, 3, -5, 2, -1]
 Query (0, 2) → -2 + 0 + 3 = 1
 Query (2, 5) → 3 + (-5) + 2 + (-1) = -1
 Query (0, 5) → -2 + 0 + 3 + (-5) + 2 + (-1) = -3
+
+
+2.// You are using Java
+import java.util.*;
+class main
+{
+    public static void main(String[] args)
+    {
+        Scanner s=new Scanner(System.in);
+        int  n=s.nextInt();
+        int a[]=new int[n];
+        for(int i=0;i<n;i++)
+        {
+            a[i]=s.nextInt();
+            
+        }
+        int k=s.nextInt();
+        int result=-1;
+        for(int i=0;i<n;i++)
+        {
+            if(a[i]==k)
+            {
+                result=i;
+                break;
+            }
+            
+        }
+        System.out.print(result);
+    }
+}
+
+Print a single integer representing the index of the target
+If the target is not present, print -1
+Input 1 :
+7
+4 5 6 7 0 1 2
+0
+Output 1 :
+4
+Input 2 :
+7
+4 5 6 7 0 1 2
+3
+Output 2 :
+-1
+
+3.import java.util.*;
+
+class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.nextLine();
+        String t = sc.nextLine();
+
+        // 1. Calculate frequencies
+        int[] countS = getFrequency(s);
+        int[] countT = getFrequency(t);
+
+        // 2. Check if they are anagrams
+        if (Arrays.equals(countS, countT)) {
+            System.out.println("Valid Anagram");
+        } else {
+            System.out.println("Invalid Anagram");
+        }
+
+        // 3. Print sorted frequencies
+        System.out.println("S: " + formatFrequency(countS));
+        System.out.println("T: " + formatFrequency(countT));
+    }
+
+    // Helper to count lowercase 'a'-'z'
+    private static int[] getFrequency(String str) {
+        int[] freq = new int[26];
+        for (char c : str.toCharArray()) {
+            freq[c - 'a']++;
+        }
+        return freq;
+    }
+    
+    // Helper to format output as "char:count char:count"
+    private static String formatFrequency(int[] freq) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 26; i++) {
+            if (freq[i] > 0) {
+                if (sb.length() > 0) sb.append(" ");
+                sb.append((char) (i + 'a')).append(":").append(freq[i]);
+            }
+        }
+        return sb.toString();
+    }
+}
+
+Input 1 :
+anagram
+nagaram
+Output 1 :
+Valid Anagram
+S: a:3 g:1 m:1 n:1 r:1
+T: a:3 g:1 m:1 n:1 r:1
+
+4.// You are using Java
+import java.util.*;
+class main
+{
+    static int fib(int n)
+    {
+        if(n==0 || n==1)
+        
+            return n;
+        return fib(n-1)+fib(n-2);
+    }
+    public static void main(String[] args)
+    {
+        Scanner s=new Scanner(System.in);
+        int n=s.nextInt();
+        System.out.print(fib(n));
+        
+    }
+}
+
+5.// You are using Java
+import java.util.*;
+class main 
+{
+    public static void main(String[] args)
+    {
+        Scanner s=new Scanner(System.in);
+        int n=s.nextInt();
+        int a[]=new int[n];
+        for(int i=0;i<n;i++)
+        {
+            a[i]=s.nextInt();
+        }
+        int m=s.nextInt();
+        int b[]=new int[m];
+        for(int i=0;i<m;i++)
+        {
+            b[i]=s.nextInt();
+        }
+        int i=0,j=0;
+        List<Integer> res=new ArrayList<>();
+        while(i<n&&j<m)
+        {
+        if(a[i]<=b[j])
+        {
+            res.add(a[i++]);
+        }
+        else
+        {
+            res.add(b[j++]);
+        }
+        }
+        while(i<n) res.add(a[i++]);
+        while(j<m) res.add(b[j++]);
+        
+          for (int k = 0; k < res.size(); k++) {
+            System.out.print(res.get(k)+" ");
+        }
+        System.out.println("\nCount: " + (n + m));
+    }
+}
+
+Input 1 :
+3
+1 2 4
+3
+1 3 4
+Output 1 :
+1 1 2 3 4 4
+Count: 6
+
+6.// You are using Java
+import java.util.*;
+class main 
+{
+    public static void main(String[] args)
+    {
+        Scanner s=new Scanner(System.in);
+        int m=s.nextInt();
+        int n=s.nextInt();
+        int [][]a=new int[m][n];
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                a[i][j]=s.nextInt();
+            }
+        }
+        int top=0,bottom=m-1;
+        int left=0,right=n-1;
+        ArrayList<Integer> result=new ArrayList<>();
+        while(top<=bottom && left<=right)
+        {
+            for (int i = left; i <= right; i++) {
+                result.add(a[top][i]);
+            }
+            top++;
+
+            // 2. Top → Bottom
+            for (int i = top; i <= bottom; i++) {
+                result.add(a[i][right]);
+            }
+            right--;
+
+            // 3. Right → Left
+            if (top <= bottom) {
+                for (int i = right; i >= left; i--) {
+                    result.add(a[bottom][i]);
+                }
+                bottom--;
+            }
+
+            // 4. Bottom → Top
+            if (left <= right) {
+                for (int i = bottom; i >= top; i--) {
+                    result.add(a[i][left]);
+                }
+                left++;
+            }
+        }
+    
+        for(int x:result)
+        {
+            System.out.print(x+" ");
+        }
+        System.out.print("\nCount: "+result.size());
+        
+    }
+}
+
+Input 1 :
+3 3
+1 2 3
+4 5 6
+7 8 9
+Output 1 :
+1 2 3 6 9 8 7 4 5
+Count: 9
+
+7.// You are using Java
+import java.util.*;
+class main
+{
+    public static void main(String[] args)
+    {
+        Scanner s=new Scanner(System.in);
+        int n=s.nextInt();
+        int a[]=new int[n];
+        for(int i=0;i<n;i++)
+        {
+            a[i]=s.nextInt();
+        }
+        int k=s.nextInt();
+        for(int i=0;i<n;i+=k)
+        {
+            if(i+k<=n)
+            {
+              rev(a,i,i+k-1);
+                
+            }
+        }
+        for(int i=0;i<n;i++)
+        {
+            System.out.print(a[i]+" ");
+        }
+        System.out.print("\nCount: "+n);
+    }
+    private static void rev(int[] a,int s,int e)
+    {
+        while(s<e)
+        {
+            int temp=a[s];
+            a[s]=a[e];
+            a[e]=temp;
+            s++;
+            e--;
+        }
+    }
+}
+
+Input 1 :
+5
+1 2 3 4 5
+2
+Output 1 :
+2 1 4 3 5
+Count: 5
+
+8.// You are using Java
+import java.util.*;
+class main
+{
+    public static void main(String[] args)
+    {
+        Scanner s=new Scanner(System.in);
+        int n=s.nextInt();
+        int a[]=new int[n];
+        for(int i=0;i<n;i++)
+        {
+            a[i]=s.nextInt();
+        }
+        for(int x:a)
+        {
+            System.out.print(x+" ");
+           
+        }
+        for(int x:a)
+        {
+            System.out.print(x+" ");
+           
+        }
+    }
+}
+
+INPUT 
+3
+1 2 1
+OUTPUT
+1 2 1 1 2 1
+
+9.// You are using Java
+import java.util.*;
+class main
+{
+    public static void main(String[] args)
+    {
+        Scanner s=new Scanner(System.in);
+        int n=s.nextInt();
+        char []ch=new char[n];
+        for(int i=0;i<n;i++)
+        {
+            ch[i]=s.next().charAt(0);
+        }
+        int l=0,r=n-1;
+        while(l<=r)
+        {
+            char temp=ch[l];
+            ch[l]=ch[r];
+            ch[r]=temp;
+            l++;
+            r--;
+        }
+        for(int i=0;i<n;i++)
+        {
+            System.out.print(ch[i]+" ");
+        }
+    }
+}
+
+Input 1 :
+5// You are using Java
+import java.util.*;
+class main 
+{
+    public static void main(String[] args)
+    {
+        Scanner s=new Scanner(System.in);
+        int n=s.nextInt();
+        int a[]=new int[n];
+        for(int i=0;i<n;i++)
+        {
+            a[i]=s.nextInt();
+        }
+        int k=s.nextInt();
+        int left=0,right=n-1;
+        int pos=n;
+        boolean found=false;
+        while(left<=right)
+        {
+            int mid=(left+right)/2;
+            if(a[mid]==k)
+            {
+                pos=mid;
+                found=true;
+                break;
+            }
+            else if(a[mid]<k)
+            {
+                left=mid+1;
+            }
+            else{
+                pos=mid;
+                right=mid-1;
+            }
+        }
+        if(!found)
+        {
+            pos=left;
+        }
+        System.out.print("Position: "+pos);
+        if(found)
+        {
+            System.out.print("\nStatus: Present");
+        }
+        else{
+            System.out.print("\nStatus: Insert");
+        }
+    }
+    
+}
+
+Input 1 :
+4
+1 3 5 6
+5
+Output 1 :
+Position: 2
+Status: Present
+Input 2 :
+4
+1 3 5 6
+2
+Output 2 :
+Position: 1
+Status: Insert
+h e l l o
+Output 1 :
+o l l e h
+
+
+10.
+
+
+
